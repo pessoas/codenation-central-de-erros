@@ -3,6 +3,7 @@ package br.com.codenation.centraldeerros;
 import br.com.codenation.centraldeerros.entity.Log;
 import br.com.codenation.centraldeerros.entity.User;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
@@ -18,23 +19,23 @@ class CentraldeerrosApplicationTests {
 	@Test
 	void userClassCreationTest() {
 		User user = new User(2L,"testing@hotmail.com", "123");
-		assert user.getId().equals(2L);
-		assert user.getEmail().equals("testing@hotmail.com");
-		assert user.getPassword().equals("123");
+		assertEquals(2L, user.getId());
+		assertEquals("testing@hotmail.com", user.getEmail());
+		assertEquals("123", user.getPassword());
 	}
 
 	@Test
 	void userClassModificationTest() {
 		User user = new User(2L,"testing@hotmail.com", "123");
-		assert user.getId().equals(2L);
-		assert user.getEmail().equals("testing@hotmail.com");
-		assert user.getPassword().equals("123");
+		assertEquals(2L, user.getId());
+		assertEquals("testing@hotmail.com", user.getEmail());
+		assertEquals("123", user.getPassword());
 
 		user.setEmail("modificado@gmail.com");
 		user.setPassword("456");
 
-		assert user.getEmail().equals("modificado@gmail.com");
-		assert user.getPassword().equals("456");
+		assertEquals("modificado@gmail.com", user.getEmail());
+		assertEquals("456", user.getPassword());
 	}
 
 	@Test
@@ -43,13 +44,14 @@ class CentraldeerrosApplicationTests {
 
 		Log log = new Log(1L, "level", "descricao", "log","origem",date, 1L);
 
-		assert log.getId().equals(1L);
-		assert log.getLevel().equals("level");
-		assert log.getDescription().equals("descricao");
-		assert log.getEventLog().equals("log");
-		assert log.getOrigin().equals("origem");
-		assert log.getEventNumber().equals(1L);
-		assert log.getCreatedAt().equals(date);
+		assertEquals(1L, log.getId());
+		assertEquals("level", log.getLevel());
+		assertEquals("descricao", log.getDescription());
+		assertEquals("log", log.getEventLog());
+		assertEquals("origem", log.getOrigin());
+		assertEquals(1L, log.getEventNumber());
+		assertEquals(date, log.getCreatedAt());
+
 	}
 
 	@Test
@@ -66,13 +68,12 @@ class CentraldeerrosApplicationTests {
 		date = LocalDateTime.of(2014, Month.JANUARY, 1, 10, 10, 30);
 		log.setCreatedAt(date);
 
-		assert log.getId().equals(1L);
-		assert log.getLevel().equals("level2");
-		assert log.getDescription().equals("descricao2");
-		assert log.getEventLog().equals("log2");
-		assert log.getOrigin().equals("origem2");
-		assert log.getEventNumber().equals(2L);
-		assert log.getCreatedAt().equals(date);
+		assertEquals("level2", log.getLevel());
+		assertEquals("descricao2", log.getDescription());
+		assertEquals("log2", log.getEventLog());
+		assertEquals("origem2", log.getOrigin());
+		assertEquals(2L, log.getEventNumber());
+		assertEquals(date, log.getCreatedAt());
 	}
 
 }
