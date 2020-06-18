@@ -1,6 +1,7 @@
 package br.com.codenation.centraldeerros.controller;
 
 import br.com.codenation.centraldeerros.entity.User;
+import br.com.codenation.centraldeerros.projection.UserEmailOnly;
 import br.com.codenation.centraldeerros.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getAll() {
+    public ResponseEntity<List<UserEmailOnly>> getAll() {
         return new ResponseEntity<>(this.userService.findAll(), HttpStatus.OK);
     }
 
