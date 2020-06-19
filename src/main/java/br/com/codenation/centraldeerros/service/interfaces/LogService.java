@@ -16,10 +16,11 @@ public interface LogService {
     List<LogNoEventLog> findByDescription(String description, Pageable pageable);
 
     List<LogNoEventLog> findByOrigin(String origin, Pageable pageable);
-    List<LogNoEventLog> findByCreatedAt(LocalDateTime dateTime, Pageable pageable);
-    List<LogNoEventLog> findByUpdatedAt(LocalDateTime dateTime, Pageable pageable);
+    List<LogNoEventLog> findByCreatedAt(String createdAt, Pageable pageable);
+    List<LogNoEventLog> findByUpdatedAt(String createdAt, Pageable pageable);
     List<LogNoEventLog> findByEventNumber(Long number, Pageable pageable);
     Log save(Log newLog);
+    Log update(Long id);
     void deleteById(Long id);
     List<Log> findAll();
 }

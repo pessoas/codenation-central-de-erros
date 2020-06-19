@@ -10,11 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("api/logs")
@@ -25,29 +22,14 @@ public class LogController {
 
     @PostMapping
     public ResponseEntity<Log> create(@RequestBody Log log) {
-        //se o log ja existe, update no eventNumber
-        Stream<Log> logs = this.logService.findAll().stream();
-
-        Log equal = logs.filter(element -> {
-            return element.getLevel().equals(log.getLevel()) &&
-                    element.getDescription().toLowerCase().equals(log.getDescription().toLowerCase()) &&
-                    element.getOrigin().toLowerCase().equals(log.getOrigin().toLowerCase()) &&
-                    element.getEventLog().toLowerCase().equals(log.getEventLog().toLowerCase());
-        }).findFirst().orElse(null);
-
-        if(equal != null) {
-            return this.update(equal.getId());
-        }
 
         return new ResponseEntity<>(this.logService.save(log), HttpStatus.CREATED);
     }
 
     @PutMapping
     public ResponseEntity<Log> update(Long id) {
-        Log updatedLog = this.logService.findById(id).get();
-        updatedLog.update();
 
-        return new ResponseEntity<>(this.logService.save(updatedLog), HttpStatus.OK);
+        return new ResponseEntity<>(this.logService.update(id), HttpStatus.OK);
     }
 
     @GetMapping
@@ -84,23 +66,17 @@ public class LogController {
     }
 
     @GetMapping("/createdAt/{createdAt}")
-    public ResponseEntity<List<LogNoEventLog>> getByCreatedAt(@PathVariable("createdAt") String localDateTime,
+    public ResponseEntity<List<LogNoEventLog>> getByCreatedAt(@PathVariable("createdAt") String createdAt,
                                                               Pageable pageable) {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime dateTime = LocalDateTime.parse(localDateTime, formatter);
-
-        return new ResponseEntity<>(this.logService.findByCreatedAt(dateTime, pageable), HttpStatus.OK);
+        return new ResponseEntity<>(this.logService.findByCreatedAt(createdAt, pageable), HttpStatus.OK);
     }
 
     @GetMapping("/updatedAt/{updatedAt}")
-    public ResponseEntity<List<LogNoEventLog>> getByUpdatedAt(@PathVariable("updatedAt") String localDateTime,
+    public ResponseEntity<List<LogNoEventLog>> getByUpdatedAt(@PathVariable("updatedAt") String updatedAt,
                                                               Pageable pageable) {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime dateTime = LocalDateTime.parse(localDateTime, formatter);
-
-        return new ResponseEntity<>(this.logService.findByUpdatedAt(dateTime, pageable), HttpStatus.OK);
+        return new ResponseEntity<>(this.logService.findByUpdatedAt(updatedAt, pageable), HttpStatus.OK);
     }
 
 }
