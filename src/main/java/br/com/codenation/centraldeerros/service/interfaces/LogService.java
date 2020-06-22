@@ -19,6 +19,9 @@ public interface LogService {
     List<LogNoEventLog> findByCreatedAt(String createdAt, Pageable pageable);
     List<LogNoEventLog> findByUpdatedAt(String createdAt, Pageable pageable);
     List<LogNoEventLog> findByEventNumber(Long number, Pageable pageable);
+
+    List<LogNoEventLog> findByEventLog(String log, Pageable pageable);
+
     Log save(Log newLog);
     Log update(Long id);
     void deleteById(Long id);

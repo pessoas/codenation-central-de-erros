@@ -6,6 +6,7 @@ import br.com.codenation.centraldeerros.projection.LogNoEventLog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -13,13 +14,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface LogRepository extends CrudRepository<Log, Long> {
+public interface LogRepository extends PagingAndSortingRepository<Log, Long> {
 
     Page<LogNoEventLog> findBy(Pageable pageable);
 
     Page<LogNoEventLog> findByLevel(Level level, Pageable pageable);
 
-    Page<LogNoEventLog> findByDescriptionContainingIgnoreCase(@Param("passedDescription") String description, Pageable pageable);
+    Page<LogNoEventLog> findByDescriptionContainingIgnoreCase( String description, Pageable pageable);
 
     Page<LogNoEventLog> findByOriginContainingIgnoreCase( String origin, Pageable pageable);
 
@@ -29,6 +30,7 @@ public interface LogRepository extends CrudRepository<Log, Long> {
 
     Page<LogNoEventLog> findByEventNumber(Long number, Pageable pageable);
 
+    Page<LogNoEventLog> findByEventLogContainingIgnoreCase(String log, Pageable pageable);
 
     List<Log> findAll();
 

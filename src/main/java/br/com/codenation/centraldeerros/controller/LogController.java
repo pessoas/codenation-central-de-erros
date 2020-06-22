@@ -65,6 +65,11 @@ public class LogController {
         return new ResponseEntity<>(this.logService.findByEventNumber(eventNumber, pageable),HttpStatus.OK);
     }
 
+    @GetMapping("/eventLog/{eventLog}")
+    public ResponseEntity<List<LogNoEventLog>> getByEventLog(String log, Pageable pageable) {
+        return new ResponseEntity<>(this.logService.findByEventLog(log, pageable), HttpStatus.OK);
+    }
+
     @GetMapping("/createdAt/{createdAt}")
     public ResponseEntity<List<LogNoEventLog>> getByCreatedAt(@PathVariable("createdAt") String createdAt,
                                                               Pageable pageable) {

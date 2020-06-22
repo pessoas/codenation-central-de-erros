@@ -70,6 +70,11 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
+    public List<LogNoEventLog> findByEventLog(String log, Pageable pageable) {
+        return this.logRepository.findByEventLogContainingIgnoreCase(log, pageable).getContent();
+    }
+
+    @Override
     public Log save(Log newLog) {
         Stream<Log> logStream = this.logRepository.findAll().stream();
 
