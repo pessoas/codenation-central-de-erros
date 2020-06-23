@@ -71,7 +71,8 @@ public class Log {
     @Column(name = "event_number")
     private Long eventNumber;
 
-    public void update() {
-        this.eventNumber++;
+    public void update(Long numberOfEvents) {
+
+        this.eventNumber += numberOfEvents;
     }
 }

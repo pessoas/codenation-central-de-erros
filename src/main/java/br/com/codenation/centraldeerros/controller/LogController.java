@@ -26,10 +26,16 @@ public class LogController {
         return new ResponseEntity<>(this.logService.save(log), HttpStatus.CREATED);
     }
 
-    @PutMapping
-    public ResponseEntity<Log> update(Long id) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Log> update(@PathVariable("id") Long id, Long numberOfEvents) {
 
-        return new ResponseEntity<>(this.logService.update(id), HttpStatus.OK);
+        return new ResponseEntity<>(this.logService.update(id, numberOfEvents), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+        this.logService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping
@@ -39,6 +45,7 @@ public class LogController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Log>> findById(@PathVariable("id") Long id) {
+
         return new ResponseEntity<>(this.logService.findById(id), HttpStatus.OK);
     }
 

@@ -86,7 +86,7 @@ public class LogServiceImpl implements LogService {
         }).findFirst().orElse(null);
 
         if(equal != null) {
-            return this.update(equal.getId());
+            return this.update(equal.getId(), newLog.getEventNumber());
         }
 
         return this.logRepository.save(newLog);
@@ -98,15 +98,10 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
-    public List<Log> findAll() {
-        return this.logRepository.findAll();
-    }
-
-    @Override
-    public Log update(Long id) {
+    public Log update(Long id, Long numberOfEvents) {
 
         Log logToUpdate = this.logRepository.findById(id).get();
-        logToUpdate.update();
+        logToUpdate.update(numberOfEvents);
 
         return this.logRepository.save(logToUpdate);
     }
