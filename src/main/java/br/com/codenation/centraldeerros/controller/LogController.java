@@ -1,5 +1,6 @@
 package br.com.codenation.centraldeerros.controller;
 
+import br.com.codenation.centraldeerros.controller.advice.ResourceNotFoundException;
 import br.com.codenation.centraldeerros.entity.Log;
 import br.com.codenation.centraldeerros.entity.enums.Level;
 import br.com.codenation.centraldeerros.projection.LogNoEventLog;
@@ -10,8 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/logs")
@@ -21,7 +22,7 @@ public class LogController {
     private LogService logService;
 
     @PostMapping
-    public ResponseEntity<Log> create(@RequestBody Log log) {
+    public ResponseEntity<Log> create(@Valid @RequestBody Log log) {
 
         return new ResponseEntity<>(this.logService.save(log), HttpStatus.CREATED);
     }
@@ -34,6 +35,7 @@ public class LogController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+        Log log = this.logService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Log not found for ID: \" + id"));
         this.logService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -44,9 +46,9 @@ public class LogController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Log>> findById(@PathVariable("id") Long id) {
-
-        return new ResponseEntity<>(this.logService.findById(id), HttpStatus.OK);
+    public ResponseEntity<Log> findById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(this.logService.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Log not found for ID: " + id)), HttpStatus.OK);
     }
 
 

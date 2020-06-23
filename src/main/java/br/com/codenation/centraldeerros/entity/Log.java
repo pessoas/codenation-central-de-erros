@@ -6,14 +6,11 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDateTime;
 
 @Entity
@@ -37,20 +34,24 @@ public class Log {
 
     @Getter
     @NonNull
+    @NotEmpty
     private String description;
 
     @Getter
     @NonNull
+    @NotEmpty
     @Column(name = "log_event")
     private String eventLog;
 
     @Getter
     @NonNull
+    @NotEmpty
     private String origin;
 
     @Getter
     @CreationTimestamp
     @NonNull
+    @PastOrPresent
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -60,6 +61,7 @@ public class Log {
     @Setter
     @UpdateTimestamp
     @NonNull
+    @PastOrPresent
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
@@ -68,6 +70,7 @@ public class Log {
     @Getter
     @Setter
     @NonNull
+    @Min(value = 1)
     @Column(name = "event_number")
     private Long eventNumber;
 
