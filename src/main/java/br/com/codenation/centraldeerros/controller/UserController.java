@@ -1,9 +1,8 @@
 package br.com.codenation.centraldeerros.controller;
 
 import br.com.codenation.centraldeerros.controller.advice.ResourceNotFoundException;
-import br.com.codenation.centraldeerros.entity.Log;
 import br.com.codenation.centraldeerros.entity.User;
-import br.com.codenation.centraldeerros.projection.UserEmailOnly;
+import br.com.codenation.centraldeerros.projection.UserEmailAndIdOnly;
 import br.com.codenation.centraldeerros.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,7 +33,7 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserEmailOnly>> getAll() {
+    public ResponseEntity<List<UserEmailAndIdOnly>> getAll() {
         return new ResponseEntity<>(this.userService.findAll(), HttpStatus.OK);
     }
 

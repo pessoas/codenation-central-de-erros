@@ -1,6 +1,6 @@
 package br.com.codenation.centraldeerros.projection;
 
-public interface UserEmailOnly {
+public interface UserEmailAndIdOnly {
     Long getId();
     String getEmail();
 }

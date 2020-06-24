@@ -1,7 +1,7 @@
 package br.com.codenation.centraldeerros.service.implementation;
 
 import br.com.codenation.centraldeerros.entity.User;
-import br.com.codenation.centraldeerros.projection.UserEmailOnly;
+import br.com.codenation.centraldeerros.projection.UserEmailAndIdOnly;
 import br.com.codenation.centraldeerros.repository.UserRepository;
 import br.com.codenation.centraldeerros.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public List<UserEmailOnly> findAll() {
+    public List<UserEmailAndIdOnly> findAll() {
         return this.userRepository.findBy();
     }
 
