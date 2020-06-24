@@ -1,26 +1,16 @@
 package br.com.codenation.centraldeerros.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 
 @Entity
 @NoArgsConstructor
@@ -38,7 +28,7 @@ public class User implements UserDetails {
     @Getter
     @Setter
     @NonNull
-    @NotBlank
+    @NotEmpty
     @Email
     @Column(unique = true)
     private String email;
@@ -46,12 +36,12 @@ public class User implements UserDetails {
     @Getter
     @Setter
     @NonNull
-    @NotBlank
+    @NotEmpty
     private String password;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ADMIN"));
+        return Collections.singletonList(new SimpleGrantedAuthority("ADMIN"));
     }
 
     @Override

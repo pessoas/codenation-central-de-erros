@@ -1,5 +1,7 @@
 package br.com.codenation.centraldeerros.controller;
 
+import br.com.codenation.centraldeerros.controller.advice.ResourceNotFoundException;
+import br.com.codenation.centraldeerros.entity.Log;
 import br.com.codenation.centraldeerros.entity.User;
 import br.com.codenation.centraldeerros.projection.UserEmailOnly;
 import br.com.codenation.centraldeerros.service.interfaces.UserService;
@@ -24,8 +26,11 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable("id") Long id){
+    public ResponseEntity<?> deleteById(@PathVariable("id") Long id){
+        User user = this.userService.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found for ID: " + id));
         this.userService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping
@@ -36,12 +41,14 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getById(@PathVariable("id") Long id){
-        return new ResponseEntity<>(this.userService.findById(id).get(), HttpStatus.OK);
+        return new ResponseEntity<>(this.userService.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found for ID: " + id)), HttpStatus.OK);
     }
 
-    @GetMapping("/user/{email}")
+    @GetMapping("/email/{email}")
     public ResponseEntity<User> getByEmail(@PathVariable("email") String email) {
-        return new ResponseEntity<>(this.userService.findByEmail(email).get(), HttpStatus.OK);
+        return new ResponseEntity<>(this.userService.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found for email: " + email)), HttpStatus.OK);
     }
 
     @PutMapping
