@@ -29,3 +29,39 @@ Abaixo estão os requisitos desta API, o time terá total liberdade para tomar a
 * Deve suportar Ordenação por diferentes tipos de atributos
 * A consulta de listagem não deve retornar os LOGs dos Eventos
 * Deve permitir a busca de um evento por um ID, dessa maneira exibindo o LOG desse evento em específico
+
+***
+
+
+###Instruções:
+
+A API está disponível para testes através da plataforma do Heroku.
+
+[Documentação da API](https://rpessoa-centralerros.herokuapp.com/swagger-ui.html "SwaggerUi")
+
+Para utilizar a api é necessário estar autenticado.
+
+URL para autenticação: https://rpessoa-centralerros.herokuapp.com/oauth/token
+
+No Postman utilizar Basic Auth com as seguintes informações:
+- Username: rpessoa
+- Password: rpessoa123
+
+No body da request utilizar:
+- grant-type: password
+- username: testing@email.com _(pré-cadastrado)_
+- password: 123 _(pré-cadastrado)_
+
+Os endpoints da api disponíveis em: https://rpessoa-centralerros.herokuapp.com/api/
+
+**Tecnologias usadas**
+* Java 8
+* Spring Boot
+* Spring Data JPA
+* Spring Security
+* Lombok
+* H2 Database
+* SpringFox
+* Swagger UI
+* Junit
+* Heroku
