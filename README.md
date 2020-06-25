@@ -54,6 +54,8 @@ No body da request utilizar:
 
 Os endpoints da api disponíveis em: https://rpessoa-centralerros.herokuapp.com/api/
 
+[Link para a apresentação!](https://www.youtube.com/watch?v=RC82fqLI640)
+
 **Tecnologias usadas**
 * Java 8
 * Spring Boot
